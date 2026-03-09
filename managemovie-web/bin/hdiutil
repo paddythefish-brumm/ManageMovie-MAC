@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+if [ -x /usr/bin/hdiutil ]; then
+  exec /usr/bin/hdiutil "$@"
+fi
+cmd="$(command -v hdiutil 2>/dev/null || true)"
+if [ -n "$cmd" ] && [ "$cmd" != "$0" ]; then
+  exec "$cmd" "$@"
+fi
+echo "hdiutil is not available on this platform" >&2
+exit 127
