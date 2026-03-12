@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+if [ -x /usr/bin/osascript ]; then
+  exec /usr/bin/osascript "$@"
+fi
+cmd="$(command -v osascript 2>/dev/null || true)"
+if [ -n "$cmd" ] && [ "$cmd" != "$0" ]; then
+  exec "$cmd" "$@"
+fi
+echo "osascript is not available on this platform" >&2
+exit 127
